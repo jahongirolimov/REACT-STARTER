@@ -1,4 +1,35 @@
+import { useState } from "react";
+
 const App = () => {
+  const [input, setInput] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [time, setTime] = useState("");
+  const [post, setPost] = useState([]);
+  const addPost = () => {
+    const newPost = {
+      id: Math.round(Math.random() * 1000),
+      title: title,
+      input: input,
+      description: description,
+      time: time,
+    };
+    if (
+      newPost.title.trim().length === 0 ||
+      newPost.description.trim().length === 0 ||
+      newPost.input.trim().length === 0 ||
+      newPost.time.trim().length === 0
+    ) {
+      alert("task malumotlarini to'liq kiriting");
+    } else {
+      setPost([...post, newPost]);
+      setInput("");
+      setTitle("");
+      setDescription("");
+      setTime("");
+    }
+  };
+
   return (
     <>
       <header className="w-[100%] bg-black text-yellow-400 p-4">
@@ -13,6 +44,10 @@ const App = () => {
               type="text"
               placeholder="lesson theme"
               className="p-4 rounded w-[500px]"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
             />
             <textarea
               className="rounded w-[500px]"
@@ -20,24 +55,40 @@ const App = () => {
               id=""
               cols="30"
               rows="10"
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
             ></textarea>
             <input
               type="date"
               className="rounded p-4 inline relative w-[200px]"
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value);
+              }}
             />
             <input
               type="time"
               className="rounded p-4 inline relative w-[200px] left-[250px] top-[-77px]"
+              value={time}
+              onChange={(e) => {
+                setTime(e.target.value);
+              }}
             />
-            <button className=" rounded text-yellow-400 p-4 bg-black-400 border-yellow-800 border-[4px] inline-block w-[270px]">
+            <button
+              onClick={addPost}
+              className=" rounded text-yellow-400 p-4 bg-black-400 border-yellow-800 border-[4px] inline-block w-[270px]"
+            >
               SAQLASH
             </button>
           </div>
+
           <div className="wrapperTwo w-[50%] bg-white p-4 rounded">
-            <h4>Lorem ipsum dolosdsdr sit.</h4>
-            <p></p>
-            <p className=""></p>
-            <p></p>
+            <h4>{title}</h4>
+            <p>{description}</p>
+            <p className="">{input}</p>
+            <p>{time}</p>
           </div>
         </section>
       </main>

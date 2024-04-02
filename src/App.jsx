@@ -6,6 +6,7 @@ const App = () => {
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [post, setPost] = useState([]);
+
   const addPost = () => {
     const newPost = {
       id: Math.round(Math.random() * 1000),
@@ -85,10 +86,18 @@ const App = () => {
           </div>
 
           <div className="wrapperTwo w-[50%] bg-white p-4 rounded">
-            <h4>{title}</h4>
-            <p>{description}</p>
-            <p className="">{input}</p>
-            <p>{time}</p>
+            {post.length ? (
+              post?.map((item) => {
+                return <div>
+                  <h3>{item?.title}</h3>
+                  <p>{item?.description}</p>
+                  <span>{item?.input}</span>
+                  <small className="block">{item?.time}</small>
+                </div>;
+              })
+            ) : (
+              <h1>not found</h1>
+            )}
           </div>
         </section>
       </main>
